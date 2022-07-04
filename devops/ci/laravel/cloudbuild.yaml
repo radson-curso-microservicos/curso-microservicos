@@ -2,7 +2,7 @@ steps:
 
 - id: "Rodando docker-compose"
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
-  args: ['-f', 'laravel/docker-compose-cloudbuild.yaml', 'up', '-d']
+  args: ['-f', 'devops/ci/laravel/docker-compose-cloudbuild.yaml', 'up', '-d']
 
 - id: "Chwon in /var/www"
   name: 'gcr.io/cloud-builders/docker'
