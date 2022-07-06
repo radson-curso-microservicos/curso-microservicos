@@ -31,11 +31,17 @@ services:
         depends_on:
             - app
     db:
-        image: mysql:5.7
+        #image: mysql:5.7
+        build: .docker/mysql
         command: --innodb-use-native-aio=0
         container_name: db
         restart: always
         tty: true
+        ulimits: # https://gist.github.com/vicenterusso/ae6d6c903b790e5dae91c339c1ce2ba8
+            nproc: 65535
+            nofile:
+                soft: 20000
+                hard: 40000
         ports:
             - "3306:3306"
         volumes:
@@ -43,7 +49,7 @@ services:
         environment:
             - MYSQL_DATABASE=laravel
             - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_USER=root
+#            - MYSQL_USER=root
         networks:
             - app-network
 
