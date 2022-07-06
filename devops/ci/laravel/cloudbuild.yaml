@@ -19,7 +19,7 @@ steps:
 - id: "Listando base de dados"
   # –e “show databases;”
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'db', 'mysql', '-uroot', '-proot', '-e', '“show databases;”']
+  args: ['exec', '-i', 'db', 'sh', '-c', 'exec mysql -uroot -proot -e “show databases;”']
 
 #- id: "Rodando composer"
 #  name: 'gcr.io/cloud-builders/docker'
