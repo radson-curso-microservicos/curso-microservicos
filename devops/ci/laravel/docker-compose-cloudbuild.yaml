@@ -1,39 +1,39 @@
-version: '3'
+#version: '3'
 
 services:
-#    app:
-#        build: .
-#        container_name: app
-#        entrypoint: dockerize -template ./.docker/app/.env:.env -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
-#        environment:
-#            - DB_HOST=db
-#            - DB_DATABASE=laravel
-#            - DB_USERNAME=root
-#            - DB_PASSWORD=root
-#        volumes:
-#            - .:/var/www
-#        networks:
-#            - app-network
-#        depends_on:
-#            - db
-#            - redis
-#    nginx:
-#        build: .docker/nginx
-#        container_name: nginx
-#        restart: always
-#        tty: true
-#        environment:
-#            - NGINX_PORT=80
-#            - APP_PORT=9000
-#            - APP_HOST=app
-#        ports:
-#            - "8000:80"
-#        volumes:
-#            - .:/var/www
-#        networks:
-#            - app-network
-#        depends_on:
-#            - app
+    app:
+       build: .
+       container_name: app
+    #    entrypoint: dockerize -template ./.docker/app/.env:.env -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+    #    environment:
+    #        - DB_HOST=db
+    #        - DB_DATABASE=laravel
+    #        - DB_USERNAME=root
+    #        - DB_PASSWORD=root
+       volumes:
+           - .:/var/www
+       networks:
+           - app-network
+       depends_on:
+           - db
+           - redis
+    nginx:
+       build: .docker/nginx
+       container_name: nginx
+       restart: always
+       tty: true
+       environment:
+           - NGINX_PORT=80
+           - APP_PORT=9000
+           - APP_HOST=app
+       ports:
+           - "8000:80"
+       volumes:
+           - .:/var/www
+       networks:
+           - app-network
+       depends_on:
+           - app
     db:
         #image: mysql:5.7
         build: .docker/mysql
@@ -41,18 +41,8 @@ services:
         container_name: db
         restart: always
         tty: true
-        # ulimits: # https://gist.github.com/vicenterusso/ae6d6c903b790e5dae91c339c1ce2ba8
-        #     nproc: 65535
-        #     nofile:
-        #         soft: 20000
-        #         hard: 40000
         ports:
             - "3306:3306"
-        # healthcheck:
-        #   test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
-        #   interval: 2s
-        #   timeout: 20s
-        #   retries: 10
         volumes:
             - ./.docker/dbdata:/var/lib/mysql
         environment:
@@ -62,13 +52,13 @@ services:
             - MYSQL_PASSWORD=admin
         networks:
             - app-network
-
- #   redis:
- #       image: redis:alpine
- #       expose:
- #           - 6379
- #       networks:
- #           - app-network
+    
+    redis:
+       image: redis:alpine
+       expose:
+           - 6379
+       networks:
+           - app-network
 
 networks:
     app-network:
