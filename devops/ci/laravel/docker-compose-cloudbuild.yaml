@@ -37,28 +37,29 @@ services:
     db:
         #image: mysql:5.7
         build: .docker/mysql
-        command: --innodb-use-native-aio=0 --default-authentication-plugin=mysql_native_password
+        command: mysqld --innodb-use-native-aio=0 --default-authentication-plugin=mysql_native_password
         container_name: db
         restart: always
         tty: true
-        ulimits: # https://gist.github.com/vicenterusso/ae6d6c903b790e5dae91c339c1ce2ba8
-            nproc: 65535
-            nofile:
-                soft: 20000
-                hard: 40000
+        # ulimits: # https://gist.github.com/vicenterusso/ae6d6c903b790e5dae91c339c1ce2ba8
+        #     nproc: 65535
+        #     nofile:
+        #         soft: 20000
+        #         hard: 40000
         ports:
             - "3306:3306"
-        healthcheck:
-          test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
-          interval: 2s
-          timeout: 20s
-          retries: 10
+        # healthcheck:
+        #   test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
+        #   interval: 2s
+        #   timeout: 20s
+        #   retries: 10
         volumes:
             - ./.docker/dbdata:/var/lib/mysql
         environment:
             - MYSQL_DATABASE=laravel
             - MYSQL_ROOT_PASSWORD=root
-            #- MYSQL_USER=root
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=admin
         networks:
             - app-network
 
