@@ -4,9 +4,9 @@ steps:
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
   args: ['-f', 'devops/ci/laravel/docker-compose-cloudbuild.yaml', 'up', '-d']
 
-- id: "Chwon in /var/www"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
+#- id: "Chwon in /var/www"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
 
 - id: "Rodando docker ps"
   name: 'gcr.io/cloud-builders/docker'
@@ -21,13 +21,13 @@ steps:
 #  name: 'gcr.io/cloud-builders/docker'
 #  args: ['exec', '-i', 'db', 'sh', '-c', 'exec mysql -uroot -proot -e “show databases;”']
 
-- id: "Rodando composer"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'composer', 'install']
+#- id: "Rodando composer"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'composer', 'install']
 
-- id: "Listando .env"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'cat', '.env']
+#- id: "Listando .env"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'cat', '.env']
 
 
 #- id: "Copiando .env"
@@ -38,9 +38,9 @@ steps:
 #  name: 'gcr.io/cloud-builders/docker'
 #  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
 
-- id: "Rodando migrations"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+#- id: "Rodando migrations"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
 
 #- id: "Rodando PHPunit"
 #  name: 'gcr.io/cloud-builders/docker'
