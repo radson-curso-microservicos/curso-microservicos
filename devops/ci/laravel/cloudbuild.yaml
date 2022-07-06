@@ -18,7 +18,7 @@ steps:
 
 - id: "Listando base de dados"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'db', 'sh', '-c', 'mysql', '-uroot', '-proot', '-e', “show databases;”']
+  args: ['exec', '-t', 'db', 'sh', '-c', 'mysql', '-uadmin', '-padmin', '-e', “show databases;”']
 
 - id: "Logs Mysql1"
   name: 'gcr.io/cloud-builders/docker'
