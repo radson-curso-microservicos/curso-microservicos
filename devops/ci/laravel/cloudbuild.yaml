@@ -12,23 +12,27 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['ps']
 
-- id: "Rodando composer"
+- id: "Logs Mysql"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'composer', 'install']
+  args: ['logs', 'db']
 
-- id: "Copiando .env"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'cp', '-v', '.env.example', '.env']
+#- id: "Rodando composer"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'composer', 'install']
 
-- id: "Rodando key:generate"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
+#- id: "Copiando .env"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'cp', '-v', '.env.example', '.env']
 
-- id: "Rodando migrations"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+#- id: "Rodando key:generate"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
 
-- id: "Rodando PHPunit"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
+#- id: "Rodando migrations"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+
+#- id: "Rodando PHPunit"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
 
