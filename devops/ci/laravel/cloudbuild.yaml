@@ -4,9 +4,9 @@ steps:
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
   args: ['-f', 'devops/ci/laravel/docker-compose-cloudbuild.yaml', 'up', '-d']
 
-- id: "Chwon in /var/www"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
+#- id: "Chwon in /var/www"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
 
 - id: "Rodando docker ps"
   name: 'gcr.io/cloud-builders/docker'
