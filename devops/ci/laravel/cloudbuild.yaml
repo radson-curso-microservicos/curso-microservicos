@@ -17,9 +17,9 @@ steps:
   args: ['logs', '--tail', '100', 'db']
   #args: ['logs', '-f', '--tail', '100', 'db']
 
-- id: "Listando base de dados"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'db', 'sh', '-c', 'mysql', '-uadmin', '-padmin', '-e', “show databases;”']
+#- id: "Listando base de dados"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'db', 'sh', '-c', 'mysql', '-uadmin', '-padmin', '-e', “show databases;”']
 
 - id: "Rodando composer"
   name: 'docker'
