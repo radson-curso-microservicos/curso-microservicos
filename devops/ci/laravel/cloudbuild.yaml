@@ -24,17 +24,18 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'composer', 'install']
 
-- id: "Listando .env"
+- id: "Copiando .env"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'cat', '.env']
-
-# - id: "Copiando .env"
-#   name: 'gcr.io/cloud-builders/docker'
-#   args: ['exec', '-t', 'app', 'cp', '-v', '.env.example', '.env']
+  args: ['exec', '-t', 'app', 'cp', '-v', '.env.example', '.env']
 
 - id: "Rodando key:generate"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
+
+
+- id: "Testando conexão com BD"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'dockerize', '-wait', 'tcp://db:3306', '-timeout', '40s']
 
 - id: "Rodando migrations"
   name: 'gcr.io/cloud-builders/docker'
@@ -43,4 +44,3 @@ steps:
 - id: "Rodando PHPunit"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
-
