@@ -12,10 +12,6 @@ steps:
 #   name: 'gcr.io/cloud-builders/docker'
 #   args: ['ps']
 
-# - id: "Listando base de dados"
-#   name: 'gcr.io/cloud-builders/docker'
-#   args: ['exec', '-t', 'db', 'sh', '-c', 'mysql', '-uadmin', '-padmin', '-e', “show databases;”']
-
 - id: "Rodando composer"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'composer', 'install']
@@ -28,13 +24,13 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
 
-- id: "Testando conexão com BD"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'dockerize', '-wait', 'tcp://db:3306', '-timeout', '40s']
+#- id: "Testando conexão com BD"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['exec', '-t', 'app', 'dockerize', '-wait', 'tcp://db:3306', '-timeout', '40s']
 
-- id: "Logs Mysql"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['logs', 'db']
+#- id: "Logs Mysql"
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['logs', 'db']
 
 - id: "Rodando migrations"
   name: 'gcr.io/cloud-builders/docker'
