@@ -4,6 +4,14 @@ steps:
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
   args: ['-f', 'devops/ci/laravel/docker-compose-cloudbuild.yaml', 'up', '-d']
 
+- id: "Testando conexão com BD"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'dockerize', '-wait', 'tcp://db:3306', '-timeout', '40s']
+
+- id: "Logs Mysql"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['logs', 'db']
+
 - id: "Chwon in /var/www"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
@@ -23,14 +31,6 @@ steps:
 - id: "Rodando key:generate"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
-
-#- id: "Testando conexão com BD"
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['exec', '-t', 'app', 'dockerize', '-wait', 'tcp://db:3306', '-timeout', '40s']
-
-#- id: "Logs Mysql"
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['logs', 'db']
 
 - id: "Rodando migrations"
   name: 'gcr.io/cloud-builders/docker'
