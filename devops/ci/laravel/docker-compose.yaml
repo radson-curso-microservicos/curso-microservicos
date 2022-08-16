@@ -47,12 +47,12 @@ services:
                 soft: 20000
                 hard: 40000
         ports:
-            - "33006:3306"
+            - "33060:3306"
         volumes:
             - ./.docker/dbdata:/var/lib/mysql
         environment:
-            MYSQL_DATABASE: laravel
             MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
         networks:
