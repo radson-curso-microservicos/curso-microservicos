@@ -47,7 +47,7 @@ services:
                 soft: 20000
                 hard: 40000
         ports:
-            - "3306:3306"
+            - "33006:3306"
         volumes:
             - ./.docker/dbdata:/var/lib/mysql
         environment:
